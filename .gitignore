@@ -1,0 +1,61 @@
+# ======================
+# Eclipse / STS
+# ======================
+
+.classpath
+.project
+.settings/
+
+# Eclipse metadata
+.factorypath
+.springBeans
+.sts4-cache/
+
+
+# ======================
+# Java Build
+# ======================
+
+# compiled files
+*.class
+
+# build directories
+bin/
+target/
+out/
+
+
+# ======================
+# IntelliJ IDEA
+# ======================
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+# ======================
+# OS
+# ======================
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+
+# ======================
+# Logs
+# ======================
+
+*.log
+
+
+# ======================
+# VS Code (혹시 사용 시)
+# ======================
+
+.vscode/
