@@ -1,4 +1,5 @@
 //22:25 ~ 23:34 
+//23:47 ~ 00:37
 
 // n개의 숫자 연산자 우선순위는 고려하지 않음
 // 왼쪽에서 순서대로
@@ -20,6 +21,7 @@
 // + + - 아 dfs 를 안쓰면 분기점으로 다시 값을 되돌리기가 힘들겠다
 // dfs에서는 가져갈 값이 없는거같은데
 // 음 operator 를 1차원으로 펴줘야겠는데?
+// 으아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ 시간 초과 중복제거해야함
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -116,7 +118,7 @@ class Solution{
       System.out.printf("#%d %d\n",test_case,max-min);
     }
 
-
+    
      
   }
 }
