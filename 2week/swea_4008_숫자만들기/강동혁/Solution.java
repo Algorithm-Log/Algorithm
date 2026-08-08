@@ -22,9 +22,15 @@
 // dfs에서는 가져갈 값이 없는거같은데
 // 음 operator 를 1차원으로 펴줘야겠는데?
 // 으아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ 시간 초과 중복제거해야함
-
+// 변경할 카드끼리 값이 같으면 continue 하는건
+// 중복제거효과가 없나? dfs 첫줄에 그냥 연산을 해본적있는 연산자 순서면 return?
+// 저 조건문으로 중복이 안들어갈거같은데 일단 해봄
+// set으로 operator 배열의 값을 넣고 같은 값이면 return 하도록
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 class Solution{
@@ -32,41 +38,43 @@ class Solution{
   static int[] arr;
   static int max;
   static int min;
+  static Set<String> set=new HashSet<String>();
   static void dfs(int depth){
+    
+    StringBuilder sb= new StringBuilder();
+    for(int n:operator){
+      sb.append(n);
+    }
+   
+    if(set.contains(sb.toString()+String.valueOf(depth))){
+      return;
+    }
+    int cal=arr[0];
+    for(int k=0;k<operator.length;k++){
+      if(operator[k]==0){
+        cal+=+arr[k+1];
+      }else if(operator[k]==1){
+        cal-=arr[k+1];
+      }else if(operator[k]==2){
+        cal*=arr[k+1];
+      }else if(operator[k]==3){
+        cal/=arr[k+1];
+      }
+    }
+    sb= new StringBuilder();
+    for(int n:operator){
+      sb.append(n);
+    }
+    max=Integer.max(max, cal);
+    min=Integer.min(min, cal);
+    set.add(sb.toString()+String.valueOf(depth));
     for(int i=depth;i<operator.length-1;i++){
       for(int j=i+1;j<operator.length;j++){
-        if(operator[i]==operator[j]){
-          continue;
-        }
+     
         int temp=operator[i];
         operator[i]=operator[j];
         operator[j]=temp;
-        //여기서 연산을 해줘야하는데
-        int cal=arr[0];
-        for(int k=0;k<operator.length;k++){
-          if(operator[k]==0){
-            cal+=+arr[k+1];
-            //System.out.printf("cal :%d %d %d\n",cal,k,operator[k]);
-          }else if(operator[k]==1){
-            cal-=arr[k+1];
-            //System.out.printf("cal :%d %d %d\n",cal,k,operator[k]);
-          }else if(operator[k]==2){
-            cal*=arr[k+1];
-            //System.out.printf("cal :%d %d %d\n",cal,k,operator[k]);
-          }else if(operator[k]==3){
-            cal/=arr[k+1];
-            //System.out.printf("cal :%d %d %d\n",cal,k,operator[k]);
-          }
-          
-        }
-        /**for(int a : operator){
-        System.out.printf("%d ",a);
-        }
-        System.out.println();
-        System.out.printf("%d\n",cal);
-        **/
-        max=Integer.max(max, cal);
-        min=Integer.min(min, cal);
+      
         dfs(depth+1);
         temp=operator[i];
         operator[i]=operator[j];
@@ -74,8 +82,8 @@ class Solution{
       }
     }
     
-
   }
+    
 
   public static void main(String[] args)throws Exception{
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -83,6 +91,7 @@ class Solution{
     int T=Integer.parseInt(br.readLine());
 
     for(int test_case=1;test_case<T+1;test_case++){
+      set.clear();
       int n=Integer.parseInt(br.readLine());
       max=Integer.MIN_VALUE;
       min=Integer.MAX_VALUE;
@@ -103,7 +112,6 @@ class Solution{
         for(int j=0;j<temp[i];j++){
           operator[index]=i;
           index++;
-          //System.out.printf("%d %d %d %d\n",operatorLen,index,index+temp[i],i);
         }  
       }
       
