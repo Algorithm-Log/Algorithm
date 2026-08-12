@@ -45,18 +45,6 @@ Algorithm
 
 커밋 메시지는 아래 형식을 사용합니다.
 
-
-[Week] 문제명 - 이름
-
-
-예시:
-
-
-[1week] swea_1234_괄호 - 강예린
-
-
----
-
 ## Commit Type
 
 | Type | 설명 |
@@ -67,11 +55,13 @@ Algorithm
 | Refactor | 코드 개선 |
 | Docs | README 수정 |
 
+Commit Type: [Week] 문제명 - 이름
+
 
 예시:
 
 
-Solve: [1week] BOJ_1234_괄호 - yerin
+Solve: [1week] swea_1234_괄호 - 강예린
 
 
 ---
@@ -86,4 +76,3 @@ Solve: [1week] BOJ_1234_괄호 - yerin
 ## PR 내용
 
 템플릿에 맞추어 한문제를 다풀고 풀이 방식을 적어 PR을 올려주세요 !
-
