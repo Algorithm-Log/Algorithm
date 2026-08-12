@@ -19,7 +19,7 @@
 Algorithm
 │
 ├── 1week
-│   ├── swea_문제번호_문제이름
+│   ├── SWEA_문제번호_문제이름
 │   │   ├── 강싸피
 │   │   │   └── Solution.java
 │   │   │
@@ -61,7 +61,7 @@ Commit Type: [Week] 문제명 - 이름
 예시:
 
 
-Solve: [1week] swea_1234_괄호 - 강예린
+Solve: [1week] SWEA_1234_괄호 - 강예린
 
 
 ---
