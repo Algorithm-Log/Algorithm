@@ -80,3 +80,63 @@ class Solution {
     }
     
 }
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+
+import java.util.*;
+
+class Solution {
+    
+    Map<String, List<String>> map;
+    Set<String> visited;
+    List<String> result;
+    boolean check;
+    int length;
+    
+    public String[] solution(String[][] tickets) {
+        
+        length = tickets.length;
+        map = new HashMap<>();
+        result = new ArrayList<>();
+        visited = new HashSet<>();
+        check = false;
+        
+        for(String[] str : tickets){
+            map.computeIfAbsent(str[0], k -> new ArrayList<>()).add(str[1]);
+            Collections.sort(map.get(str[0]));
+        }
+        
+        dfs(0, "ICN", new ArrayList<>(Arrays.asList("ICN")));
+        String[] answer = result.toArray(new String[0]);
+        return answer;
+    }
+    
+    
+    void dfs(int depth, String from, List<String> path){
+        if(check) return;
+        
+        if(depth == length){
+            result = new ArrayList<>(path);
+            check = true;
+            return;
+        }
+        
+        if(!map.containsKey(from)) return;
+        
+        for(int i = 0; i < map.get(from).size(); i++){
+            String str = map.get(from).get(i);
+            String s = from+str+i;
+            if(visited.contains(s))
+                continue;
+            visited.add(s);
+            
+            path.add(str);
+            dfs(depth + 1, str, path);
+            path.remove(path.size() - 1);
+            
+            visited.remove(s);
+        }
+    }
+} 
+
