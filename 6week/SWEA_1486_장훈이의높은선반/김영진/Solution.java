@@ -33,15 +33,10 @@ class Solution
 			}
 			return ;
 		}
-		//더하는 경우
-		// if(!visited[index]){
-		// 	visited[index] = true;
-		// 	dfs(index + 1, sum + arr[index]);
-		// 	visited[index] = false;
-		// }
 
+		//더하는 경우
 		dfs(index + 1, sum + arr[index]);
 		//더하지 않는경우
-			dfs(index + 1, sum);
+		dfs(index + 1, sum);
 	}
 }
