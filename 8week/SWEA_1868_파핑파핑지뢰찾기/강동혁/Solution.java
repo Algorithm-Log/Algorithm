@@ -29,6 +29,7 @@ class Solution {
     static int n;
     static StringBuilder sb = new StringBuilder();
     static char[][] map;
+    static int[][] countMap;
     static Deque<int[]> que;
     public static void main(String[] args)throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -39,17 +40,28 @@ class Solution {
             n = Integer.parseInt(br.readLine());
 
             map = new char[n][n];
+            countMap = new int[n][n];
 
             for(int row=0;row<n;row++){
                 String temp = br.readLine();
                 for(int col=0;col<n;col++){
                     map[row][col]=temp.charAt(col);
+                    
+                    
+                    
+                }
+            }
+
+            for(int row=0;row<n;row++){
+                for(int col=0;col<n;col++){
+                    // 주변 지뢰 갯수 배열
+                    countMap[row][col]=checkCount(col,row);
                 }
             }
 
             // for(int row=0;row<n;row++){
             //     for(int col=0;col<n;col++){
-            //         System.out.print(map[row][col]);
+            //         System.out.print(countMap[row][col]);
             //     }
             //     System.out.println();
             // }
@@ -61,7 +73,7 @@ class Solution {
             for(int y=0;y<n;y++){
                 for(int x=0;x<n;x++){
 
-                    if(check(x,y) && map[y][x]=='.'){ 
+                    if(map[y][x]=='.' && countMap[y][x]==0){ 
                         // 최소 갯수를 만족하기 위해 주변칸에 지뢰가 없는 것들만 먼저
                         
                         que.offer(new int[]{x,y});
@@ -95,44 +107,49 @@ class Solution {
         }
         System.out.print(sb);
     }
-    static boolean check(int x,int y){
+
+    static int checkCount(int x,int y){
+        int count=0;
         for(int dir=0;dir<8;dir++){
-            int nx = x+dx[dir];
-            int ny= y+dy[dir];
+            int nx=x+dx[dir];
+            int ny=y+dy[dir];
 
             if(!isRange(nx, ny)) continue;
 
             if(map[ny][nx]=='*'){
-                return false;
+                count++;
             }
-            
         }
-        return true;
-    }
-    static void bfs(){
-        int count=0;
 
+        return count;
+    }
+
+    // static boolean check(int x,int y){
+    //     for(int dir=0;dir<8;dir++){
+    //         int nx = x+dx[dir];
+    //         int ny = y+dy[dir];
+
+    //         if(!isRange(nx, ny)) continue;
+
+    //         if(map[ny][nx]=='*'){
+    //             return false;
+    //         }
+            
+    //     }
+    //     return true;
+    // }
+    static void bfs(){
         while(!que.isEmpty()){
             
             for(int i=0;i<que.size();i++){
-                count=0;
                 int[] temp = que.poll();
                 //System.out.println(x,y);
                 int x=temp[0];
                 int y=temp[1];
 
-                for(int dir=0;dir<8;dir++){
-
-                    int nx = x+dx[dir];
-                    int ny = y+dy[dir];
-
-                    if(isRange(nx, ny)){
-                        if(map[ny][nx]=='*'){
-                            count++;
-                        }
-                    }
-                }
-                if(count==0){
+                // 주변에 지뢰가 없으면 8방향 검사후 8방향 좌표 중
+                // '.' 애만 추가
+                if(countMap[y][x]==0){
                     //System.out.print("asd");
                     map[y][x]='0';
                     for(int dir=0;dir<8;dir++){
@@ -146,12 +163,9 @@ class Solution {
                     
                     }
                 }else{
-                    map[y][x]=(char)(count+'0');
+                    map[y][x]=(char)(countMap[y][x]+'0');
                 }
             }
-            
-           
-            
         }
 
     }
