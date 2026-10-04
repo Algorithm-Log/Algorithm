@@ -45,10 +45,7 @@ class Solution {
             for(int row=0;row<n;row++){
                 String temp = br.readLine();
                 for(int col=0;col<n;col++){
-                    map[row][col]=temp.charAt(col);
-                    
-                    
-                    
+                    map[row][col]=temp.charAt(col);    
                 }
             }
 
@@ -58,13 +55,6 @@ class Solution {
                     countMap[row][col]=checkCount(col,row);
                 }
             }
-
-            // for(int row=0;row<n;row++){
-            //     for(int col=0;col<n;col++){
-            //         System.out.print(countMap[row][col]);
-            //     }
-            //     System.out.println();
-            // }
 
             que=new ArrayDeque<>();
 
@@ -79,12 +69,7 @@ class Solution {
                         que.offer(new int[]{x,y});
                         res++;
                         bfs();
-                        // for(int row=0;row<n;row++){
-                        //     for(int col=0;col<n;col++){
-                        //         System.out.print(map[row][col]);
-                        //     }
-                        //     System.out.println();
-                        // }
+                        que.clear();
                 
                     }
                     
@@ -98,11 +83,8 @@ class Solution {
                     if(map[y][x]=='.'){
                         res++;
                     }
-
                 }
             }
-            
-
             sb.append("#"+test_case+" "+res+"\n");
         }
         System.out.print(sb);
@@ -124,20 +106,17 @@ class Solution {
         return count;
     }
 
-    // static boolean check(int x,int y){
-    //     for(int dir=0;dir<8;dir++){
-    //         int nx = x+dx[dir];
-    //         int ny = y+dy[dir];
 
-    //         if(!isRange(nx, ny)) continue;
-
-    //         if(map[ny][nx]=='*'){
-    //             return false;
-    //         }
-            
-    //     }
-    //     return true;
-    // }
+    // 시간 초과가 난다 
+    // 계속 반복을 하고있나?
+    // 지금 내 로직
+    // 맵에서 주변 8방향에 지뢰가 없고 '.' 애들을 큐에 넣고
+    // 그 넣어진 좌표 값을 0으로 변경하고
+    // 그 좌표 기준 8방향 값이 범위 안이고 '.' 애들을 큐에 넣음
+    // 여기가 반복인가? 아니야 여기는 그렇게 많이 반복안됨
+    // 그럼 큐에 들어간 애들이 꺼내져서는
+    // 그 큐에서 나온 좌표기준 8방향에 지뢰가 없다면 또 8방향 좌표를 큐에 넣고
+    // 음 중복이 없는거같은데
     static void bfs(){
         while(!que.isEmpty()){
             
@@ -149,8 +128,9 @@ class Solution {
 
                 // 주변에 지뢰가 없으면 8방향 검사후 8방향 좌표 중
                 // '.' 애만 추가
+                //if(map[ny][nx]!='.') continue;
                 if(countMap[y][x]==0){
-                    //System.out.print("asd");
+                    
                     map[y][x]='0';
                     for(int dir=0;dir<8;dir++){
 
@@ -158,6 +138,11 @@ class Solution {
                         int ny = y+dy[dir];
 
                         if(isRange(nx, ny) && map[ny][nx]=='.'){
+                            // 구현할때 조건을 세부적으로 들어가서 구현하지말고 map[ny][nx]=='.' 이렇게
+                            // visited 사용해서 크게크게 엣지 케이스가 발생할수없도록
+                            // 크게크게 구현을 하는습관을 가져야하나?
+                            // 강사님한테 물어봐야지
+                            map[ny][nx]=(char)(countMap[ny][nx]+'0');
                             que.offer(new int[]{nx,ny});
                         }
                     
