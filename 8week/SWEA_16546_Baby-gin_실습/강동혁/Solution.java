@@ -44,143 +44,218 @@ import java.io.*;
 
 
 class Solution {
-
-    static int[] input,curCards;
-    static boolean res;
-    static StringBuilder sb= new StringBuilder();
-    static boolean[] visited;
+    static int[] playerInput;
+    static StringBuilder sb = new StringBuilder();
+    static int count;
     public static void main(String[] args)throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int T= Integer.parseInt(br.readLine());
 
         for(int test_case=1;test_case<T+1;test_case++){
-            input=new int[6];
+            
             String temp = br.readLine();
 
-            //아놔 1 이 계속 49로 들어가고 있었네
-            //문자열 숫자로 변환하기 하나로 정해두자 어떻게 할지
+            playerInput = new int[10];
+
             for(int i=0;i<6;i++){
-                input[i]=Integer.valueOf(temp.charAt(i)-'0'); 
+                //System.out.print(temp.charAt(i)-'0');
+                playerInput[Integer.valueOf(temp.charAt(i)-'0')]++;
+
             }
+            count=0;
+            run();
+            triplet();
 
-        
-
-     
-            res=false;
-            curCards = new int[6];
-            visited = new boolean[6];
-
-            dfs(0);
-            
             sb.append("#"+test_case);
-            if(res){
-                //
+
+            if(count==2){
                 sb.append(" true\n");
             }else{
                 sb.append(" false\n");
             }
-            
+
         }
         System.out.print(sb);
     }
 
-    static void dfs(int depth){
-        // 순열 종료 조건
-        if(depth==6){
+    static void run(){
 
-            //만들어진 순열이 베이비진인지 검사
-            if(isBabyGin())res=true;    
+        
+        // for(int i=0;i<playerInput.length;i++){
+        //     System.out.printf("%d ",playerInput[i]);
+        // }
+        // System.out.println();
+
+        for(int i=0;i<playerInput.length;i++){
+            while(playerInput[i]>=3){
+                playerInput[i]-=3;
+                count++;
+            }
+        }
+        
+    }
+
+    static void triplet(){
+
+        
+        // for(int i=0;i<playerInput.length;i++){
+        //     System.out.printf("%d ",playerInput[i]);
+        // }
+        // System.out.println();
+
+         for(int i=0;i<playerInput.length-2;i++){
+
+            if(playerInput[i]==0)continue;
             
-            return;
+            while(playerInput[i]!=0 && playerInput[i+1] !=0
+                && playerInput[i+2] !=0
+            ){
+                playerInput[i]--;
+                playerInput[i+1]--;
+                playerInput[i+2]--;
+                count++;
+            }
+
         }
+    }
 
-        for(int i=0;i<6;i++){
+    // static int[] input,curCards;
+    // static boolean res;
+    // static StringBuilder sb= new StringBuilder();
+    // static boolean[] visited;
+    // public static void main(String[] args)throws Exception {
+    //     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-            // 순서를 만들기 위해서 visited 사용
-            if(visited[i])continue;
+    //     int T= Integer.parseInt(br.readLine());
 
-            visited[i]=true;
-            //현재 만들어지고 있는 순열을 저장해가면서 dfs 탐색을 진행함
-            curCards[depth]=input[i];
+    //     for(int test_case=1;test_case<T+1;test_case++){
+    //         input=new int[6];
+    //         String temp = br.readLine();
 
-            dfs(depth+1);
+    //         //아놔 1 이 계속 49로 들어가고 있었네
+    //         //문자열 숫자로 변환하기 하나로 정해두자 어떻게 할지
+    //         for(int i=0;i<6;i++){
+    //             input[i]=Integer.valueOf(temp.charAt(i)-'0'); 
+    //         }
 
-            // 123456 하나만들면 종료조건을 만나서 return 문 이후 여기로 돌아오고
-            // 현재 1 2 3 4 5 6 전부 visited 체크가 되어있고 i=5 depth 도 5
+        
+
+     
+    //         res=false;
+    //         curCards = new int[6];
+    //         visited = new boolean[6];
+
+    //         dfs(0);
             
-            // *********
-            // 다시 여기로
-            // i=4 depth 도 4
-            // 1 2 3 4 까지 visited 체크되어있고
-            // 반복문 한번더 가능하니 i=5 depth4
-            // 1 2 3 4 6 들어가고
-            // 1 2 3 4 6 5 이렇게 계속 반복
-            visited[i]=false;
-            // 1 2 3 4 5 만 체크되어있고 
-            // 코드없으므로 자연스럽게 return 해서 *****으로
-        }
-    }
+    //         sb.append("#"+test_case);
+    //         if(res){
+    //             //
+    //             sb.append(" true\n");
+    //         }else{
+    //             sb.append(" false\n");
+    //         }
+            
+    //     }
+    //     System.out.print(sb);
+    // }
 
-    static boolean isBabyGin(){
+    // static void dfs(int depth){
+    //     // 순열 종료 조건
+    //     if(depth==6){
 
-        boolean leftcheck=false;
-        boolean rightcheck=false;
+    //         //만들어진 순열이 베이비진인지 검사
+    //         if(isBabyGin())res=true;    
+            
+    //         return;
+    //     }
 
-        //인덱스 0~2 까지 카드들이 run 인지 triple 인지 검사
-        int i=0;
+    //     for(int i=0;i<6;i++){
+
+    //         // 순서를 만들기 위해서 visited 사용
+    //         if(visited[i])continue;
+
+    //         visited[i]=true;
+    //         //현재 만들어지고 있는 순열을 저장해가면서 dfs 탐색을 진행함
+    //         curCards[depth]=input[i];
+
+    //         dfs(depth+1);
+
+    //         // 123456 하나만들면 종료조건을 만나서 return 문 이후 여기로 돌아오고
+    //         // 현재 1 2 3 4 5 6 전부 visited 체크가 되어있고 i=5 depth 도 5
+            
+    //         // *********
+    //         // 다시 여기로
+    //         // i=4 depth 도 4
+    //         // 1 2 3 4 까지 visited 체크되어있고
+    //         // 반복문 한번더 가능하니 i=5 depth4
+    //         // 1 2 3 4 6 들어가고
+    //         // 1 2 3 4 6 5 이렇게 계속 반복
+    //         visited[i]=false;
+    //         // 1 2 3 4 5 만 체크되어있고 
+    //         // 코드없으므로 자연스럽게 return 해서 *****으로
+    //     }
+    // }
+
+    // static boolean isBabyGin(){
+
+    //     boolean leftcheck=false;
+    //     boolean rightcheck=false;
+
+    //     //인덱스 0~2 까지 카드들이 run 인지 triple 인지 검사
+    //     int i=0;
         
-        if(run(i) || triplet(i)){
-            leftcheck=true;
-        }
+    //     if(run(i) || triplet(i)){
+    //         leftcheck=true;
+    //     }
 
-        i=3;
+    //     i=3;
         
-        //인덱스 3~5 까지 카드들이 run 인지 triple 인지 검사
-        if(run(i) ||triplet(i)){
-            rightcheck=true;
-        }
+    //     //인덱스 3~5 까지 카드들이 run 인지 triple 인지 검사
+    //     if(run(i) ||triplet(i)){
+    //         rightcheck=true;
+    //     }
 
-        //왼쪽 오른쪽 둘다 run이나 triple 이면 true반환
-        if(leftcheck && rightcheck){
-            return true;
-        }else{
-            return false;
-        }
+    //     //왼쪽 오른쪽 둘다 run이나 triple 이면 true반환
+    //     if(leftcheck && rightcheck){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
             
         
-    }
+    // }
 
-    static boolean run(int i){
-        boolean check=false;
+    // static boolean run(int i){
+    //     boolean check=false;
         
-        //오름차순으로 연속인지
-        if(curCards[i]==1+curCards[i+1] && curCards[i]==2+curCards[i+2]){
-            check=true;
-        }
-        //내림차순으로 연속인지
-        if(curCards[i]==curCards[i+1]-1&& curCards[i]==curCards[i+2]-2){
-            check=true;
-        }
+    //     //오름차순으로 연속인지
+    //     if(curCards[i]==1+curCards[i+1] && curCards[i]==2+curCards[i+2]){
+    //         check=true;
+    //     }
+    //     //내림차순으로 연속인지
+    //     if(curCards[i]==curCards[i+1]-1&& curCards[i]==curCards[i+2]-2){
+    //         check=true;
+    //     }
 
-        if(check)return true;
-        return false;
+    //     if(check)return true;
+    //     return false;
         
-    }
+    // }
 
-    static boolean triplet(int i){
-        boolean check=false;
+    // static boolean triplet(int i){
+    //     boolean check=false;
         
-        if(curCards[i]==curCards[i+1] && curCards[i]==curCards[i+2]){
-            check=true;
-        }
+    //     if(curCards[i]==curCards[i+1] && curCards[i]==curCards[i+2]){
+    //         check=true;
+    //     }
 
-        if(check){
-            return true;
-        }
+    //     if(check){
+    //         return true;
+    //     }
 
-        return false;
+    //     return false;
         
-    }
+    // }
 
 }
