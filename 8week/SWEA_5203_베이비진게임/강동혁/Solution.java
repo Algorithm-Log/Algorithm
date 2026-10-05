@@ -4,7 +4,7 @@ import java.io.*;
 
 // 12:53
 
-// 길이가 10인 배열에 누적합 방식으로 카드를 받을때마다 카운팅을 해주고
+// 길이가 10인 카운팅 배열에 카드를 받을때마다 카운팅을 해주고
 // 카드를 받을때마다 그 인덱스 누적합이 3인지 검사 (run)검사
 // 받은 카드 기준으로 왼쪽으로 2칸 오른쪽으로 2칸 검사해서 같은 숫자가 3개이상인지 검사(triplet)검사
 // 카드를 p1 부터 받고 p2 가 받으닌까
@@ -67,7 +67,7 @@ class Solution {
     }
 
     static void run(int player){
-        
+
         System.out.println("player : "+player);
         for(int i=0;i<playerInput[player].length;i++){
             System.out.printf("%d ",playerInput[player][i]);
