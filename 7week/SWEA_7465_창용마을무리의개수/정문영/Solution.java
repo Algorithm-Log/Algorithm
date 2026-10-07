@@ -3,6 +3,7 @@ import java.io.*;
 
 public class Solution {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	static int[] people;
 	static int answer;
 	
@@ -62,6 +63,8 @@ public class Solution {
 	}
 }
 =======
+=======
+>>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e
     static int[] people;
     static int answer;
 
@@ -118,5 +121,9 @@ public class Solution {
         else
             return findParent(people[idx]);
     }
+<<<<<<< HEAD
+}
+>>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e
+=======
 }
 >>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e

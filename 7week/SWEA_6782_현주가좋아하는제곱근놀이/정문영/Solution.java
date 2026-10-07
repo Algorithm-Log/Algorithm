@@ -2,6 +2,7 @@ import java.io.*;
 
 public class Solution {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -30,6 +31,8 @@ public class Solution {
 		return find(cnt + 1, (long) Math.sqrt(num));
 	}
 =======
+=======
+>>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -57,5 +60,8 @@ public class Solution {
 
         return find(cnt + 1, (long) Math.sqrt(num));
     }
+<<<<<<< HEAD
+>>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e
+=======
 >>>>>>> d81f62ac1ad86d47f277bcf2541bac70ccd3b16e
 }
