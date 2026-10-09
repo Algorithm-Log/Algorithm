@@ -52,6 +52,7 @@ class Solution {
             }
             int count=0;
             boolean stop=false;
+            boolean[][] visited = new boolean[n][n];
             //행 방향 순회
             for(int col=0;col<n;col++){
                 stop=false;
@@ -60,8 +61,10 @@ class Solution {
                         //오른쪽이 더클때
                         //왼쪽으로 계단 설치 가능 여부 확인
                         for(int i=0;i<x;i++){
-                            if(isRange(row-i,col) && map[col][row-i]+1 == map[col][row+1])continue;
-                            
+                            if(isRange(row-i,col) && !visited[col][row-i] && map[col][row-i]+1 == map[col][row+1]){
+                                visited[col][row-i]=true;
+                                continue;
+                            }
                             count++;
                             stop=true;
                             break;
@@ -77,8 +80,11 @@ class Solution {
                         //오른쪽으로 계단 설치 가능 여부 확인
                         for(int i=0;i<x;i++){
 
-                            if(isRange(row+1+i,col) && map[col][row+1+i]+1 == map[col][row])continue;
-                            
+                            if(isRange(row+1+i,col) && !visited[col][row+1+i] && map[col][row+1+i]+1 == map[col][row]){
+                                 visited[col][row+1+i]=true;
+                                 continue;
+                            }
+                           
                             count++;
                             stop=true;
                             break;
@@ -89,7 +95,8 @@ class Solution {
                         break;
                     }
                 }
-            }
+            }  
+            visited= new boolean[n][n];
 
             //열 방향 순회
 
@@ -102,8 +109,10 @@ class Solution {
                         //아래쪽이 더클때
                         //위쪽으로 계단 설치 가능 여부 확인
                         for(int i=0;i<x;i++){
-                            if(isRange(row,col-i) && map[col-i][row]+1 == map[col+1][row])continue;
-                            
+                            if(isRange(row,col-i)&& !visited[col-i][row] && map[col-i][row]+1 == map[col+1][row]){
+                                visited[col-i][row]=true;
+                                continue;
+                            }
                             count++;
                             stop=true;
                             break;
@@ -118,8 +127,11 @@ class Solution {
                         //위쪽이 더클때
                         //아래쪽으로 계단 설치 가능 여부 확인
                         for(int i=0;i<x;i++){
-                            if(isRange(row,col+1+i) && map[col+1+i][row]+1 == map[col][row])continue;
-                            
+                            if(isRange(row,col+1+i) && !visited[col+1+i][row]&& map[col+1+i][row]+1 == map[col][row]){
+                                visited[col+1+i][row]=true;
+                                continue;
+                            }
+                           
                             count++;
                             stop=true;
                             break;
