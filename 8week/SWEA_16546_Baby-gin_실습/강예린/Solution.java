@@ -1,5 +1,3 @@
-package SWEA;
-
 import java.io.*;
 
 public class Solution{
