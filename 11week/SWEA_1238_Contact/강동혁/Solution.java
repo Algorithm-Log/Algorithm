@@ -24,10 +24,13 @@ public class Solution {
             graph = new ArrayList[101];
             st = new StringTokenizer(br.readLine());
 
+            //인접리스트 사용을 위한 배열에 ArrayList 객체 할당
             for(int i=0;i<=100;i++){
                 graph[i]=new ArrayList<>();
             }
 
+
+            //방향그래프 를 인접리스트로 구현
             for(int i=0;i<n/2;i++){
                 
                 int from = Integer.parseInt(st.nextToken());
@@ -47,24 +50,36 @@ public class Solution {
     } 
 
     static void bfs(int start){
-        Deque<Integer> que = new ArrayDeque<>();
-        que.offer(start);
+        Deque<List<Integer>> que = new ArrayDeque<>();
+        // 시작점 처리
+        que.offer(graph[start]);
         visited[start]=true;
+        
+        
+
         while(!que.isEmpty()){
-            int size = que.size();
+            int size=que.size();
             int max=0;
-            for(int i=0;i<size;i++){
-                int from = que.poll();
+            
+            for(int j=0;j<size;j++){//레벨단위 탐색
 
-                for(int j=0;j<graph[from].size();j++){
-                    if(visited[graph[from].get(j)]) continue;
+                List<Integer> temp = que.poll();
+                
+                for(int i=0;i<temp.size();i++){
+                    if(visited[temp.get(i)]) continue;
 
-                    visited[graph[from].get(j)]=true;
-                    que.offer(graph[from].get(j));
-                    max = Math.max(graph[from].get(j),max);
+                    visited[temp.get(i)]=true; // 방문처리
+                    que.offer(graph[temp.get(i)]); //큐에 삽입
+                    max=Math.max(temp.get(i),max); //최댓값 갱신
+                    
+                    
                 }
+
             }
-            res=max;
+            
+            if(max != 0){//큐에 넣을때 최대값을 갱신해줘서 마지막 꺼내는 반복문에서 max가0인 값으로 변경되지못하게
+                res=max;
+            }
             
         }
     }
