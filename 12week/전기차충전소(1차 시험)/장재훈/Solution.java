@@ -1,7 +1,7 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class Main
+public class Solution
 {
     static int N;
     static int[][] houses;
